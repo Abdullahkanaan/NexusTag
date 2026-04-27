@@ -1,0 +1,12 @@
+nexustag_venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+*.egg-info/
+dist/
+build/
+.DS_Store
+*.pt
+*.pth

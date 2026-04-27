@@ -1,0 +1,15 @@
+# Core dependencies
+PyQt5>=5.15.0
+PyQt5-tools>=5.15.0
+
+# AI Detection (optional)
+ultralytics>=8.0.0
+opencv-python>=4.5.0
+numpy>=1.21.0
+Pillow>=8.0.0
+
+# Data handling
+PyYAML>=6.0
+
+# QWT widgets (if needed)
+# PythonQwt>=0.10.0
