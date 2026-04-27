@@ -1,6 +1,10 @@
-# Nexus Tag
+# NexusTag
 
-**Nexus Tag** is a desktop image annotation tool with AI-assisted object detection. It allows you to manually draw bounding boxes on images, assign class labels, run YOLO-based detection automatically, and export annotations in multiple standard formats.
+**NexusTag** is a desktop image annotation tool with AI-assisted object detection. Manually draw bounding boxes, assign class labels, run YOLO-based detection automatically, and export annotations in multiple industry-standard formats.
+
+![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
+![PyQt5](https://img.shields.io/badge/UI-PyQt5-green)
+![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
 ---
 
@@ -17,31 +21,118 @@
 
 ---
 
-## Requirements
+## Installation & Setup
 
-- Python 3.10+
-- PyQt5
-- OpenCV (`opencv-python`)
-- Ultralytics (`ultralytics`) — for YOLO detection
-- NumPy
-- Pillow
+### Prerequisites
 
-All dependencies are listed in `requirements.txt`. A pre-configured virtual environment is included in `nslabel_venv/`.
+- Python 3.10 or higher
+- Git
 
 ---
 
-## Running the Application
+### Windows
 
+**1. Clone the repository**
+```bat
+git clone https://github.com/Abdullahkanaan/NexusTag.git
+cd NexusTag
+```
+
+**2. Create a virtual environment**
+```bat
+python -m venv nexustag_venv
+nexustag_venv\Scripts\activate
+```
+
+**3. Install dependencies**
+```bat
+pip install -r requirements.txt
+```
+
+> If you get a Qt plugin conflict with OpenCV, install the headless version instead:
+> ```bat
+> pip uninstall opencv-python -y
+> pip install opencv-python-headless
+> ```
+
+**4. Run the application**
+```bat
+python main.py
+```
+
+---
+
+### Linux
+
+**1. Install system dependencies**
 ```bash
-cd NS-LAB
+sudo apt update
+sudo apt install python3 python3-pip python3-venv git -y
+```
+
+**2. Clone the repository**
+```bash
+git clone https://github.com/Abdullahkanaan/NexusTag.git
+cd NexusTag
+```
+
+**3. Create a virtual environment**
+```bash
+python3 -m venv nexustag_venv
+source nexustag_venv/bin/activate
+```
+
+**4. Install dependencies**
+```bash
+pip install -r requirements.txt
+```
+
+> OpenCV and PyQt5 can conflict on Linux. Install the headless version to avoid issues:
+> ```bash
+> pip uninstall opencv-python -y
+> pip install opencv-python-headless
+> ```
+
+**5. Run the application**
+```bash
 python3 main.py
 ```
 
-If using the included virtual environment:
+---
 
+### macOS
+
+**1. Install Homebrew and Python** (skip if already installed)
 ```bash
-cd NS-LAB
-source nslabel_venv/bin/activate
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew install python git
+```
+
+**2. Clone the repository**
+```bash
+git clone https://github.com/Abdullahkanaan/NexusTag.git
+cd NexusTag
+```
+
+**3. Create a virtual environment**
+```bash
+python3 -m venv nexustag_venv
+source nexustag_venv/bin/activate
+```
+
+**4. Install dependencies**
+```bash
+pip install -r requirements.txt
+```
+
+> On macOS, prefer the headless OpenCV to avoid Qt conflicts:
+> ```bash
+> pip uninstall opencv-python -y
+> pip install opencv-python-headless
+> ```
+
+**5. Run the application**
+```bash
 python3 main.py
 ```
 
@@ -118,11 +209,12 @@ Use **Ctrl+Z** to undo the last box drawn or deleted.
 ## Project Structure
 
 ```
-NS-LAB/
+NexusTag/
 ├── main.py                        # Entry point
-├── nslabel.py                     # Main window (MVC coordinator)
+├── nexustag.py                    # Main window (MVC coordinator)
 ├── app_ui.py                      # Qt UI layout
-├── requirements.txt
+├── requirements.txt               # Python dependencies
+├── run.sh                         # Quick launch script (Linux/macOS)
 ├── yolov8n.pt                     # Pre-downloaded YOLO nano model
 ├── controllers/
 │   ├── ai_controller.py           # AI detection logic
@@ -145,12 +237,44 @@ NS-LAB/
 
 ---
 
-## Annotation File Format (Internal)
+## Annotation File Format
 
-Nexus Tag saves annotations in **YOLO format** by default:
+NexusTag saves annotations in **YOLO format** by default:
 
 ```
 <class_id> <x_center> <y_center> <width> <height>
 ```
 
-All coordinates are normalized to `[0, 1]` relative to image dimensions. One `.txt` file is created per image in the labels folder.
+All coordinates are normalized to `[0, 1]` relative to image dimensions. One `.txt` file is created per image in the `labels/` folder.
+
+---
+
+## Troubleshooting
+
+**Qt platform plugin error on Linux**
+```
+Could not load the Qt platform plugin "xcb"
+```
+Fix: Replace `opencv-python` with `opencv-python-headless`:
+```bash
+pip uninstall opencv-python -y
+pip install opencv-python-headless
+```
+
+**`python` command not found on Linux/macOS**
+
+Use `python3` instead of `python`, or create an alias:
+```bash
+alias python=python3
+```
+
+**Virtual environment not activating on Windows (execution policy error)**
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+
+---
+
+## License
+
+This project is licensed under the MIT License.
